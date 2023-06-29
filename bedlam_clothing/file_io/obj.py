@@ -61,18 +61,3 @@ def read_mesh_obj(fname: str) -> Dict[str, np.ndarray]:
     uvf = f_all[:, :, 1] if f_all.shape[2] > 1 else None
 
     return {'v': v, 'uv': uv, 'f': f, 'uvf': uvf}
-
-# def main():
-#     np.random.seed(0)
-#     v = np.random.rand(100, 3) * 1.8
-#     f = np.arange(999).reshape(-1, 3)
-#     vt = np.random.rand(110, 2)
-#     ft = np.arange(999).reshape(-1, 3)
-#     np.random.shuffle(ft)
-#     save_mesh_obj('test.obj', v, f, None, ft)
-#     data = read_mesh_obj('test.obj')
-#     return
-#
-#
-# if __name__ == '__main__':
-#     main()
