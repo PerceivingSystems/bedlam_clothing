@@ -1,0 +1,53 @@
+#  Copyright (c) 2025 Max Planck Society
+#  License: https://bedlam2.is.tuebingen.mpg.de/license.html
+
+target_fps: 30.0
+n_betas: 16
+
+paths:
+  working_path: ???
+  batch_name: ???
+
+  stage_names:
+    stage0: 0_common
+    stage1: 1_motion_sampling
+    stage2: 2_body_sampling
+    stage3: 3_motion_assignment
+    stage4: 4_motion_retargeting
+    stage5: 5_self_contact_optimization
+    stage6: 6_hand_motion
+    stage7: 7_export4unreal
+    stage8: 8_outfit_assignment
+    stage9: 9_simulation_preprocessing
+    stage10: 10_simulation
+    stage11: 11_whitelisted
+
+  stage0: ${paths.working_dir}/${paths.stage_names.stage0}
+  stage1: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage1}
+  stage2: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage2}
+  stage3: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage3}
+  stage4: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage4}
+  stage5: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage5}
+  stage6: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage6}
+  stage7: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage7}
+  stage8: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage8}
+  stage9: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage9}
+  stage10: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage10}
+  stage11: ${paths.working_dir}/${paths.batch_name}/${paths.stage_names.stage11}
+
+  log:
+    stage0: ${paths.stage0}/log.txt
+    stage1: ${paths.stage1}/log.txt
+    stage2: ${paths.stage2}/log.txt
+    stage3: ${paths.stage3}/log.txt
+    stage4: ${paths.stage4}/log.txt
+    stage5: ${paths.stage5}/log.txt
+    stage6: ${paths.stage6}/log.txt
+    stage7: ${paths.stage7}/log.txt
+    stage8: ${paths.stage8}/log.txt
+    stage9: ${paths.stage9}/log.txt
+    stage10: ${paths.stage10}/log.txt
+    stage11: ${paths.stage11}/log.txt
+
+clothing:
+  sizes: ['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', '6XL']

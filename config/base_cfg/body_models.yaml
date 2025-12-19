@@ -1,0 +1,3 @@
+smplx:
+  n_betas: 16
+  path: support_data/body_models/smplx_locked_head
