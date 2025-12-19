@@ -1,4 +1,4 @@
-# BEDLAM2.0 clothing processing tools (WORK IN PROGRESS)
+# BEDLAM2.0 assets processing tools (WORK IN PROGRESS)
 
 This repository contains processing code for the BEDLAM2.0 NeurIPS 2025 paper.
 
