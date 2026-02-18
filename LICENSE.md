@@ -47,7 +47,5 @@ Citation:
 }
 ```
 
-# Commercial licensing opportunities
-For commercial use of the Data & Software, please send emails to ps-license@tue.mpg.de
 
 This Agreement shall be governed by the laws of the Federal Republic of Germany except for the UN Sales Convention.
