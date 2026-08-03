@@ -1,0 +1,4 @@
+# Downloaded BEDLAM2.0 shoe assets (b2_shoes.tar.gz); do not commit
+*
+!.gitignore
+!download_shoes.sh

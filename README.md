@@ -1,4 +1,4 @@
-# BEDLAM2.0 assets processing tools (WORK IN PROGRESS)
+# BEDLAM2.0 assets processing tools
 
 This repository contains processing code for the BEDLAM2.0 NeurIPS 2025 paper.
 
@@ -55,6 +55,10 @@ To export a motion as `abc` using the toeless v_template, run
 ```
 python -m scripts.export_motions_as_abc <OTHER_ARGUMENTS> --v_template_fname support_data/v_templates/smplx_neutral-lh_vtemplate_toeless.obj
 ```
+
+For a worked example of this displacement-map approach, see
+[`shoes/`](shoes/README.md). It bakes a shoe-displaced body to a Blender point
+cache and includes the scene that renders it.
 
 # Citation
 

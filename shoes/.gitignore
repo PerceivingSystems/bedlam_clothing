@@ -1,0 +1,12 @@
+# User-provided AMASS motion input (license-gated; do not commit)
+data/
+
+# Generated point caches
+*.pc2
+
+# Blender backup files
+*.blend1
+
+
+# Superseded by support_data/shoes/texture_maps/; safe to delete
+textures/
