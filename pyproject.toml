@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=42", "wheel"]
+requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages]
-find = { include = ["bedlam_clothing*", "support_data*"] }
+find = { include = ["bedlam_clothing*", "scripts*", "shoes*"] }
 
 [project]
 name = "bedlam_clothing"
-version = "0.1.0"
-description = ""
+version = "0.2.0"
+description = "Processing tools for the BEDLAM2.0 dataset assets"
 authors = [
     { name = "Giorgio Becherini", email = "giorgio.becherini@tuebingen.mpg.de" }
 ]
@@ -18,6 +18,7 @@ license = { file = "LICENSE.md" }
 keywords = ["bedlam", "bedlam2", "clothing"]
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
     "License :: Other/Proprietary License",
     "Operating System :: OS Independent",
 ]
@@ -38,6 +39,5 @@ dependencies = [
 
 [project.urls]
 "Homepage" = "https://bedlam2.is.tuebingen.mpg.de/"
-# "Documentation" = ""
 "Source Code" = "https://github.com/PerceivingSystems/bedlam_clothing"
 "Issue Tracker" = "https://github.com/PerceivingSystems/bedlam_clothing/issues"
