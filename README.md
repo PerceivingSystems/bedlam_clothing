@@ -57,7 +57,7 @@ python -m scripts.export_motions_as_abc <OTHER_ARGUMENTS> --v_template_fname sup
 ```
 
 For a worked example of this displacement-map approach, see
-[`shoes/`](shoes/README.md). It bakes a shoe-displaced body to a Blender point
+[`bedlam_clothing/shoes/`](bedlam_clothing/shoes/README.md). It bakes a shoe-displaced body to a Blender point
 cache and includes the scene that renders it.
 
 # Citation

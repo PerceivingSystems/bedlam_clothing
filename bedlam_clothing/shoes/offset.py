@@ -7,10 +7,11 @@
 # The body is posed on a toeless v_template, driven by an AMASS pose sequence,
 # and lifted by a per-shoe vertical offset so the foot rests on top of the shoe
 # sole. The per-frame vertices are written to a PC2 cache that the accompanying
-# Blender scene plays back via a Mesh Cache modifier (shoes/shoeTexture.blend).
+# Blender scene plays back via a Mesh Cache modifier (bedlam_clothing/shoes/shoeTexture.blend).
 #
 # Run from the repository root:
-#   python -m shoes.offset --motion shoes/data/<sequence>.npz --shoe-id shoe_gso_003
+#   python -m bedlam_clothing.shoes.offset \
+#       --motion bedlam_clothing/shoes/data/<sequence>.npz --shoe-id shoe_gso_003
 #
 # Any sequence from the released AMASS set works, SMPL+H or SMPL-X. Only
 # 'poses[:, :66]' (global orient + 21 body joints) and 'trans' are read, and both
@@ -23,7 +24,7 @@
 # License-gated inputs are NOT shipped with the repo. Download them first:
 #   support_data/body_models/smplx_locked_head/download_smplx.sh   (SMPL-X)
 #   support_data/v_templates/download_toeless_vtemplate.sh          (template)
-# and get an AMASS sequence from https://amass.is.tue.mpg.de (see shoes/README.md).
+# and get an AMASS sequence from https://amass.is.tue.mpg.de (see bedlam_clothing/shoes/README.md).
 from __future__ import annotations
 
 import argparse
@@ -35,10 +36,11 @@ import smplx
 
 from bedlam_clothing.motion.io import read_mesh_obj, save_pc2
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_DIR = Path(__file__).resolve().parent
+REPO_ROOT = PACKAGE_DIR.parents[1]
 DEFAULT_SMPLX = REPO_ROOT / "support_data" / "body_models" / "smplx_locked_head" / "SMPLX_NEUTRAL.npz"
 DEFAULT_TEMPLATE = REPO_ROOT / "support_data" / "v_templates" / "smplx_neutral-lh_vtemplate_toeless.obj"
-DEFAULT_OFFSETS_CSV = REPO_ROOT / "shoes" / "shoe_offsets.csv"
+DEFAULT_OFFSETS_CSV = PACKAGE_DIR / "shoe_offsets.csv"
 DEFAULT_OUT = REPO_ROOT / "output" / "shoes" / "output.pc2"
 
 
@@ -86,7 +88,7 @@ def main():
         if not Path(path).exists():
             raise FileNotFoundError(
                 f"Missing required input: {path}\n"
-                f"See shoes/README.md -- SMPL-X, the toeless template, and the AMASS "
+                f"See bedlam_clothing/shoes/README.md -- SMPL-X, the toeless template, and the AMASS "
                 f"sequence must be downloaded/placed before running."
             )
 

@@ -8,7 +8,7 @@ AMASS motion sequence. It then lifts the body by a per-shoe vertical offset. The
 offset puts the foot on top of the shoe sole.
 
 ```
-shoes/offset.py                                shoes/shoeTexture.blend
+bedlam_clothing/shoes/offset.py        bedlam_clothing/shoes/shoeTexture.blend
 SMPL-X + toeless v_template + AMASS pose + offset
             │                                  Mesh Cache modifier reads the
             ▼                                  PC2 cache ──► open in Blender
@@ -44,7 +44,7 @@ the body.
 
 ## Contents
 ```
-shoes/
+bedlam_clothing/shoes/
 ├── offset.py          # builds the body and writes output.pc2
 ├── shoeTexture.blend  # scene: body mesh, shoe material, camera, lights, ground
 └── shoe_offsets.csv   # per-shoe vertical offsets (182 shoes)
@@ -60,14 +60,14 @@ texture maps of one shoe.
 |-------|---------------|-----|
 | SMPL-X neutral locked-head model | `support_data/body_models/smplx_locked_head/SMPLX_NEUTRAL.npz` | `cd support_data/body_models/smplx_locked_head && ./download_smplx.sh` |
 | Toeless v_template | `support_data/v_templates/smplx_neutral-lh_vtemplate_toeless.obj` | `cd support_data/v_templates && ./download_toeless_vtemplate.sh` |
-| An AMASS motion sequence | any path, for example `shoes/data/` | download from <https://amass.is.tue.mpg.de> |
+| An AMASS motion sequence | any path, for example `bedlam_clothing/shoes/data/` | download from <https://amass.is.tue.mpg.de> |
 | Shoe texture maps (182 shoes) | `support_data/shoes/` | `cd support_data/shoes && ./download_shoes.sh` |
 
 The archive has one folder for each shoe:
 
 ```
 support_data/shoes/
-├── shoe_offsets.csv                     # same content as shoes/shoe_offsets.csv
+├── shoe_offsets.csv                     # same content as bedlam_clothing/shoes/shoe_offsets.csv
 └── texture_maps/
     └── shoe_gso_003/
         ├── color_map.png                # albedo and alpha
@@ -75,7 +75,7 @@ support_data/shoes/
         └── normal_map.png               # surface detail
 ```
 
-Git ignores `shoes/data/`, the downloaded contents of `support_data/shoes/` and
+Git ignores `bedlam_clothing/shoes/data/`, the downloaded contents of `support_data/shoes/` and
 all `*.pc2` files.
 
 ### Which AMASS sequences work
@@ -97,7 +97,7 @@ Build the PC2 cache from the repository root:
 
 ```bash
 pip install -e .                       # once, per the root README
-python -m shoes.offset --motion shoes/data/<sequence>.npz --shoe-id shoe_gso_003
+python -m bedlam_clothing.shoes.offset --motion <sequence>.npz --shoe-id shoe_gso_003
 ```
 
 Select a shoe id from `shoe_offsets.csv`, for example `shoe_gso_120`. The ids run
@@ -109,7 +109,35 @@ installed torch build does not support the local GPU, use `--device cpu`. The
 script runs in a few seconds on either device.
 
 The script prints the frame count of the cache and the frame rate of the source
-sequence. Note both values. Next, open `shoes/shoeTexture.blend` in Blender.
+sequence. Note both values. Next, open `bedlam_clothing/shoes/shoeTexture.blend` in Blender.
+
+## How the scripts work
+
+`offset.py` runs one SMPL-X forward pass for the whole sequence:
+
+1. Read the vertices of the toeless v_template with `read_mesh_obj`.
+2. Read `poses` and `trans` from the AMASS `.npz` file.
+3. Build the SMPL-X model with `smplx.create` and give it those vertices as
+   `v_template`.
+4. Read the offset of the shoe id from `shoe_offsets.csv`.
+5. Copy `trans` and add the offset to component 2, the world up axis.
+6. Run the model and write the vertices with `save_pc2`.
+
+The `v_template` argument replaces the shape of the standard SMPL-X body. The
+script also sets every `betas` value to zero. The template alone therefore
+defines the body, which is how the feet stay toeless.
+
+The script poses the body only. It sets the hand, jaw and eye parameters to zero.
+It reads `poses[:, :3]` for the global orientation and `poses[:, 3:66]` for the
+21 body joints. One forward pass covers every frame, because `batch_size` equals
+the frame count. A sequence of 362 frames takes about 3 seconds on a CPU.
+
+`save_pc2` writes absolute world-space positions, not offsets from a rest pose.
+The Mesh Cache modifier in the scene therefore uses `OVERWRITE` mode.
+
+`download_shoes.sh` asks for your BEDLAM2.0 email address and password. It posts
+them to the download server, saves `b2_shoes.tar.gz`, and extracts the archive
+into the current directory. Run the script again to continue a stopped transfer.
 
 ## The scene
 
@@ -153,7 +181,7 @@ Non-Color.
 
 ## Licenses
 
-- Code: the license of this repository (`../LICENSE.md`).
+- Code: the license of this repository (`../../LICENSE.md`).
 - You must get the SMPL-X model and the AMASS motion under their own licenses
   (<https://smpl-x.is.tue.mpg.de>, <https://amass.is.tue.mpg.de>). This
   repository does not include them.
