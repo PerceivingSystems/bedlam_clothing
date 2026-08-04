@@ -1,4 +1,4 @@
-# BEDLAM2.0 assets processing tools
+# BEDLAM2.0 assets processing tools (WORK IN PROGRESS)
 
 This repository contains processing code for the BEDLAM2.0 NeurIPS 2025 paper.
 
@@ -15,6 +15,8 @@ Create a virtual environment and install the dependencies by running
 ```commandline
 pip install -e .
 ```
+
+This installs `bpy`, which only has wheels for Python 3.11. Use that version.
 
 ### Prerequisites
 
@@ -56,9 +58,11 @@ To export a motion as `abc` using the toeless v_template, run
 python -m scripts.export_motions_as_abc <OTHER_ARGUMENTS> --v_template_fname support_data/v_templates/smplx_neutral-lh_vtemplate_toeless.obj
 ```
 
-For a worked example of this displacement-map approach, see
-[`bedlam_clothing/shoes/`](bedlam_clothing/shoes/README.md). It bakes a shoe-displaced body to a Blender point
-cache and includes the scene that renders it.
+### Shoes
+
+The shoe pipeline is in [`bedlam_clothing/shoes/`](bedlam_clothing/shoes/README.md).
+It bakes a shoe-displaced body to a Blender point cache. The folder also has the
+Blender scene that shows the result.
 
 # Citation
 
