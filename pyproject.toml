@@ -23,14 +23,6 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
-# Only the packages the code imports. Everything else is left to the resolver.
-# Upper bounds mark known breaks: numpy 2 changes the ABI that the torch 2.5 and
-# bpy 4.2 wheels were built against, and Blender 5 moves off Python 3.11.
-# Exact pins mark versions the repository is tied to. bpy 4.2 is the Blender
-# release that wrote bedlam_clothing/shoes/shoeTexture.blend, and it is what holds
-# requires-python to 3.11. numpy 2 changes the ABI that the torch and bpy wheels
-# are built against. The git dependencies are not on PyPI, so they carry a commit.
-# The rest take a lower bound and let the resolver choose.
 dependencies = [
     "bomoto @ git+https://github.com/PerceivingSystems/bomoto.git@6a0ec31",
     "bpy==4.2.0",
